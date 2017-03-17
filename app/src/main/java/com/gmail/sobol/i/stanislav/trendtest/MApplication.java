@@ -4,15 +4,16 @@ import android.app.Application;
 import android.util.Log;
 
 import com.gmail.sobol.i.stanislav.trendtest.di.DaggerComponents;
+import com.gmail.sobol.i.stanislav.trendtest.di.DaggerDaggerComponents;
+import com.gmail.sobol.i.stanislav.trendtest.di.DaggerModules;
 import com.gmail.sobol.i.stanislav.trendtest.dto.RawDTO;
 import com.gmail.sobol.i.stanislav.trendtest.dto.RecDTO;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import lombok.Getter;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,13 +25,8 @@ import rx.schedulers.Schedulers;
  */
 
 public class MApplication extends Application {
-    //    @Getter
-    private Retrofit retrofit;
-    private TrendApi api;
-
-
-//    @Inject
-//    TrendApi api;
+    @Inject
+    TrendApi api;
 
     @Getter
     private DaggerComponents dagger2RealComponents;
@@ -38,16 +34,8 @@ public class MApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        dagger2RealComponents = DaggerDaggerComponents.builder().daggerModules(new DaggerModules()).build();
-//        dagger2RealComponents.inject(this);
-
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.trend-dev.ru")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        api = retrofit.create(TrendApi.class);
+        dagger2RealComponents = DaggerDaggerComponents.builder().daggerModules(new DaggerModules()).build();
+        dagger2RealComponents.inject(this);
 
         //   testRetro();
         testRetroFlatMap();
@@ -85,7 +73,7 @@ public class MApplication extends Application {
                 .flatMap(new Func1<RawDTO, Observable<RecDTO>>() {
                     @Override
                     public Observable<RecDTO> call(final RawDTO rawDTO) {
-                        final Observable<RecDTO> observable1 = Observable.create(new Observable.OnSubscribe<RecDTO>() {
+                        return Observable.create(new Observable.OnSubscribe<RecDTO>() {
                             @Override
                             public void call(Subscriber<? super RecDTO> subscriber) {
                                 final List<RecDTO> items = rawDTO.getRecDTOs(rawDTO);
@@ -95,8 +83,6 @@ public class MApplication extends Application {
                                 subscriber.onCompleted();
                             }
                         });
-
-                        return observable1;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())

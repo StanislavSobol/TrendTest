@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -15,9 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class DaggerModules {
-
-//    private TrendApi trendApi;
-
     @Provides
     @Singleton
     @QRetrofit
@@ -25,18 +23,10 @@ public class DaggerModules {
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.trend-dev.ru")
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-
-//        trendApi = retrofit.create(TrendApi.class);
-
         return retrofit;
     }
-
-//    @Provides
-//    @Singleton
-//    TrendApi providesTrendApi() {
-//        return trendApi;
-//    }
 
     @Provides
     TrendApi provideDeviceService(@QRetrofit Retrofit retrofit) {
