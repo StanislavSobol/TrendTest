@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="FontRegular">
+        <item name="android:fontFamily">"sans-serif"</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
+    <style name="FontBold" parent="FontRegular">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

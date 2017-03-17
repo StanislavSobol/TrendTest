@@ -50,60 +50,44 @@ public class MainPresenter extends BasePresenter implements MainPresentable {
         requestDTO.setFrom(0);
         requestDTO.setTo(10000);
 
-        rx.Observable<RawDTO> observable = dataProvider.loadData(requestDTO);
-//
-//
-//        final Observable<RawDTO> observable = Observable.create(new Observable.OnSubscribe<RawDTO>() {
-//            @Override
-//            public void call(Subscriber<? super RawDTO> subscriber) {
-//                final RequestDTO requestDTO = new RequestDTO();
-//
-//                requestDTO.setOffset(0);
-//                requestDTO.setFrom(0);
-//                requestDTO.setTo(10000);
-//
-//                dataProvider.loadData(requestDTO, subscriber);
-//            }
-//        });
-
-        mainSubscription =
-                observable
-                        .onBackpressureBuffer()
-                        .subscribeOn(Schedulers.computation())
-                        .flatMap(new Func1<RawDTO, Observable<RecDTO>>() {
+        mainSubscription = dataProvider.loadData(requestDTO)
+                .onBackpressureBuffer()
+                .subscribeOn(Schedulers.computation())
+                .flatMap(new Func1<RawDTO, Observable<RecDTO>>() {
+                    @Override
+                    public Observable<RecDTO> call(final RawDTO rawDTO) {
+                        return Observable.create(new Observable.OnSubscribe<RecDTO>() {
                             @Override
-                            public Observable<RecDTO> call(final RawDTO rawDTO) {
-                                return Observable.create(new Observable.OnSubscribe<RecDTO>() {
-                                    @Override
-                                    public void call(Subscriber<? super RecDTO> subscriber) {
-                                        final List<RecDTO> items = rawDTO.getRecDTOs(rawDTO);
-                                        for (final RecDTO item : items) {
-                                            subscriber.onNext(item);
-                                        }
-                                        subscriber.onCompleted();
-                                    }
-                                });
-                            }
-                        })
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<RecDTO>() {
-                            @Override
-                            public void onCompleted() {
-                                mainSubscription.unsubscribe();
-                                Log.d("SSS", "onCompleted = ");
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                mainSubscription.unsubscribe();
-                                Log.d("SSS", "e = " + e);
-                            }
-
-                            @Override
-                            public void onNext(RecDTO recordDTO) {
-                                Log.d("SSS", "recordDTO = " + recordDTO);
+                            public void call(Subscriber<? super RecDTO> subscriber) {
+                                final List<RecDTO> items = rawDTO.getRecDTOs(rawDTO);
+                                for (final RecDTO item : items) {
+                                    subscriber.onNext(item);
+                                }
+                                subscriber.onCompleted();
                             }
                         });
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<RecDTO>() {
+                    @Override
+                    public void onCompleted() {
+                        mainSubscription.unsubscribe();
+                        Log.d("SSS", "onCompleted = ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mainSubscription.unsubscribe();
+                        Log.d("SSS", "e = " + e);
+                    }
+
+                    @Override
+                    public void onNext(RecDTO recDTO) {
+                        Log.d("SSS", "recordDTO = " + recDTO);
+                        getCastedView().addItem(recDTO);
+                    }
+                });
     }
 
     @Override

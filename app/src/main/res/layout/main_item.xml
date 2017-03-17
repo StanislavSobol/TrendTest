@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="220px"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:paddingBottom="7px"
+    android:paddingLeft="20px"
+    android:paddingRight="18px"
+    android:paddingTop="11px">
+
+    <TextView
+        android:id="@+id/main_item_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ЖК Приневский"
+        style="@style/FontRegular"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/main_item_deadline_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Срок сдачи: "
+        style="@style/FontBold"
+        android:textSize="12sp" />
+
+</LinearLayout>
