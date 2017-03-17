@@ -1,5 +1,7 @@
 package com.gmail.sobol.i.stanislav.trendtest.di;
 
+import com.gmail.sobol.i.stanislav.trendtest.data.DataProvider;
+import com.gmail.sobol.i.stanislav.trendtest.data.DataProviderPresentable;
 import com.gmail.sobol.i.stanislav.trendtest.network.TrendApi;
 
 import javax.inject.Singleton;
@@ -31,5 +33,11 @@ public class DaggerModules {
     @Provides
     TrendApi provideDeviceService(@QRetrofit Retrofit retrofit) {
         return retrofit.create(TrendApi.class);
+    }
+
+    @Provides
+    @Singleton
+    DataProviderPresentable provideDataProviderPresentable() {
+        return new DataProvider();
     }
 }

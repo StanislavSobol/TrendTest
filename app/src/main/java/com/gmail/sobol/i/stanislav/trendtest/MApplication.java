@@ -26,6 +26,10 @@ import rx.schedulers.Schedulers;
  */
 
 public class MApplication extends Application {
+
+    @Getter
+    private static MApplication instance;
+
     @Inject
     TrendApi api;
 
@@ -35,11 +39,12 @@ public class MApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         dagger2RealComponents = DaggerDaggerComponents.builder().daggerModules(new DaggerModules()).build();
         dagger2RealComponents.inject(this);
 
         //   testRetro();
-        testRetroFlatMap();
+//        testRetroFlatMap();
     }
 
     private void testRetro() {

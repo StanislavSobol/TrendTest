@@ -12,8 +12,16 @@ public class MainActivity extends BaseActivity implements MainView, PresenterUse
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final boolean realStart = isRealStart();
         super.onCreate(savedInstanceState);
+
+//        initViews();
         setContentView(R.layout.activity_main);
+
+        if (realStart) {
+            getCastedPresenter().reset();
+            getCastedPresenter().loadData();
+        }
     }
 
     @Override

@@ -65,8 +65,4 @@ abstract public class BaseActivity extends AppCompatActivity {
     public boolean isRealStart() {
         return getPresenter() == null;
     }
-
-//    abstract protected UUID getActivityId();
-//
-//    abstract protected void clearActivityId();
 }
