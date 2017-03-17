@@ -1,6 +1,6 @@
 package com.gmail.sobol.i.stanislav.trendtest;
 
-import com.gmail.sobol.i.stanislav.trendtest.dto.RecordDTO;
+import com.gmail.sobol.i.stanislav.trendtest.dto.RawDTO;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -13,7 +13,7 @@ import rx.Observable;
 public interface TrendApi {
     //        http://api.trend-dev.ru/v2/apartments/blocks/search/
     @GET("/v2/apartments/blocks/search")
-    Observable<RecordDTO> getData(
+    Observable<RawDTO> getData(
             @Query(value = "show_type") String showType, // 'list'
             @Query(value = "count") int count,
             @Query(value = "offset") int offset,
