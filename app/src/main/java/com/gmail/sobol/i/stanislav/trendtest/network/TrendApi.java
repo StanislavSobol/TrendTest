@@ -1,4 +1,4 @@
-package com.gmail.sobol.i.stanislav.trendtest;
+package com.gmail.sobol.i.stanislav.trendtest.network;
 
 import com.gmail.sobol.i.stanislav.trendtest.dto.RawDTO;
 

@@ -28,6 +28,7 @@ public class RawDTO {
             final Map<String, Object> itemMap = (Map<String, Object>) item;
 
             final RecDTO recDTO = new RecDTO();
+
             recDTO.setId((int) (double) itemMap.get("id"));
             recDTO.setName((String) itemMap.get("name"));
             recDTO.setAddress((String) itemMap.get("address"));

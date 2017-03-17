@@ -8,6 +8,7 @@ import com.gmail.sobol.i.stanislav.trendtest.di.DaggerDaggerComponents;
 import com.gmail.sobol.i.stanislav.trendtest.di.DaggerModules;
 import com.gmail.sobol.i.stanislav.trendtest.dto.RawDTO;
 import com.gmail.sobol.i.stanislav.trendtest.dto.RecDTO;
+import com.gmail.sobol.i.stanislav.trendtest.network.TrendApi;
 
 import java.util.List;
 

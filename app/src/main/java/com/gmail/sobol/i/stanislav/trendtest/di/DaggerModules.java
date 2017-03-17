@@ -1,6 +1,6 @@
 package com.gmail.sobol.i.stanislav.trendtest.di;
 
-import com.gmail.sobol.i.stanislav.trendtest.TrendApi;
+import com.gmail.sobol.i.stanislav.trendtest.network.TrendApi;
 
 import javax.inject.Singleton;
 
