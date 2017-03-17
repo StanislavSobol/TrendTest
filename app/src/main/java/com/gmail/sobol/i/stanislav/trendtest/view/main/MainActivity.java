@@ -1,6 +1,7 @@
 package com.gmail.sobol.i.stanislav.trendtest.view.main;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.gmail.sobol.i.stanislav.trendtest.R;
 import com.gmail.sobol.i.stanislav.trendtest.dto.RecDTO;
@@ -13,10 +14,25 @@ public class MainActivity extends BaseActivity implements MainView, PresenterUse
 
     private MainFragment mainFragment;
 
+    public MainActivity() {
+        Log.d("SSS", "MainActivity constructor");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("x", 777);
+        Log.d("SSS", "onSaveInstanceState = "+ isChangingConfigurations());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final boolean realStart = isRealStart();
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            Log.d("SSS", "X = " + savedInstanceState.getInt("x"));
+        }
 
 //        initViews();
         setContentView(R.layout.activity_main);

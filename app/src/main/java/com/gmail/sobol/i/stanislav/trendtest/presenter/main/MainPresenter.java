@@ -73,7 +73,6 @@ public class MainPresenter extends BasePresenter implements MainPresentable {
                     @Override
                     public void onCompleted() {
                         mainSubscription.unsubscribe();
-                        Log.d("SSS", "onCompleted = ");
                     }
 
                     @Override
@@ -84,7 +83,6 @@ public class MainPresenter extends BasePresenter implements MainPresentable {
 
                     @Override
                     public void onNext(RecDTO recDTO) {
-                        Log.d("SSS", "recordDTO = " + recDTO);
                         getCastedView().addItem(recDTO);
                     }
                 });

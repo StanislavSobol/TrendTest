@@ -8,12 +8,30 @@
     tools:context=".view.main.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <include layout="@layout/full_progress_bar_content" />
-
-    <android.support.v7.widget.RecyclerView
-        android:background="@color/colorAccent"
-        android:id="@+id/main_recycler_view"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/full_progress_bar_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/main_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent" />
+        </FrameLayout>
+    </LinearLayout>
+
 
 </FrameLayout>

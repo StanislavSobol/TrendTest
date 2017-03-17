@@ -11,18 +11,18 @@
 
     <TextView
         android:id="@+id/main_item_name_text_view"
+        style="@style/FontRegular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ЖК Приневский"
-        style="@style/FontRegular"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/main_item_deadline_text_view"
+        style="@style/FontBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Срок сдачи: "
-        style="@style/FontBold"
         android:textSize="12sp" />
 
 </LinearLayout>
