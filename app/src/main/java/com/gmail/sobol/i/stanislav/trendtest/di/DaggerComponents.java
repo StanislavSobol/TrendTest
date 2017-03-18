@@ -3,6 +3,7 @@ package com.gmail.sobol.i.stanislav.trendtest.di;
 import com.gmail.sobol.i.stanislav.trendtest.MApplication;
 import com.gmail.sobol.i.stanislav.trendtest.data.DataProvider;
 import com.gmail.sobol.i.stanislav.trendtest.presenter.main.MainPresenter;
+import com.gmail.sobol.i.stanislav.trendtest.view.main.MainPresenter_New;
 
 import javax.inject.Singleton;
 
@@ -21,4 +22,6 @@ public interface DaggerComponents {
     void inject(MainPresenter obj);
 
     void inject(DataProvider obj);
+
+    void inject(MainPresenter_New obj);
 }

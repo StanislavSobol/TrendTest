@@ -1,6 +1,7 @@
 package com.gmail.sobol.i.stanislav.trendtest.view.main;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,12 @@ class MainActivityListAdapter extends RecyclerView.Adapter<MainActivityListAdapt
     private List<RecDTO> items = new ArrayList<>();
 
     public MainActivityListAdapter(MainFragment mainFragment) {
-
+        Log.d("SSS", "MainActivityListAdapter");
     }
-
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //Log.d("SSS", "onCreateViewHolder = ");
         return new Holder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.main_item, parent, false));
     }
@@ -36,6 +37,7 @@ class MainActivityListAdapter extends RecyclerView.Adapter<MainActivityListAdapt
     @Override
     public void onBindViewHolder(Holder holder, int position) {
         holder.setItem(items.get(position));
+        //   Log.d("SSS", "bind pos = " + position);
     }
 
     @Override

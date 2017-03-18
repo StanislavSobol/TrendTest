@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +27,15 @@ public class MainFragment extends Fragment {
     RecyclerView recyclerView;
 
     public static MainFragment newInstance() {
+        Log.d("SSS", "newInstance");
         return new MainFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d("SSS", "onCreateView");
+
         final View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         ButterKnife.bind(this, view);

@@ -1,40 +1,20 @@
 package com.gmail.sobol.i.stanislav.trendtest.view.main;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.gmail.sobol.i.stanislav.trendtest.R;
 import com.gmail.sobol.i.stanislav.trendtest.dto.RecDTO;
-import com.gmail.sobol.i.stanislav.trendtest.presenter.PresenterUser;
-import com.gmail.sobol.i.stanislav.trendtest.presenter.main.MainPresentable;
-import com.gmail.sobol.i.stanislav.trendtest.presenter.main.MainPresenter;
-import com.gmail.sobol.i.stanislav.trendtest.view.BaseActivity;
 
-public class MainActivity extends BaseActivity implements MainView, PresenterUser<MainPresentable> {
+public class MainActivity extends BaseActivity_New<IMainPresenter> implements MainView
+//        , PresenterUser<IMainPresenter>
+{
 
     private MainFragment mainFragment;
 
-    public MainActivity() {
-        Log.d("SSS", "MainActivity constructor");
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("x", 777);
-        Log.d("SSS", "onSaveInstanceState = "+ isChangingConfigurations());
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final boolean realStart = isRealStart();
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            Log.d("SSS", "X = " + savedInstanceState.getInt("x"));
-        }
-
-//        initViews();
         setContentView(R.layout.activity_main);
         mainFragment = MainFragment.newInstance();
         getFragmentManager()
@@ -46,21 +26,49 @@ public class MainActivity extends BaseActivity implements MainView, PresenterUse
                 )
                 .commit();
 
-        if (realStart) {
-            getCastedPresenter().reset();
-            getCastedPresenter().loadData();
+        if (isRealStart()) {
+            getPresenter().clearCache();
         }
+        getPresenter().loadData(!isRealStart());
     }
 
-    @Override
-    public MainPresentable createPresenter() {
-        return new MainPresenter();
-    }
+//    @Override
+//    protected void onCommonStart() {
+//        Log.d("SSS", "onCommonStart");
+//
+//        setContentView(R.layout.activity_main);
+//        mainFragment = MainFragment.newInstance();
+//        getFragmentManager()
+//                .beginTransaction()
+//                .replace(
+//                        R.id.main_container,
+//                        mainFragment,
+//                        MainFragment.class.getName()
+//                )
+//                .commit();
+//    }
+//
+//    @Override
+//    protected void onRealStart() {
+//        getCastedPresenter().clearCache();
+//        getCastedPresenter().loadData(false);
+//    }
+//
+//    @Override
+//    protected void onUnrealStart() {
+//        Log.d("SSS", "onUnrealStart");
+//        getCastedPresenter().loadData(true);
+//    }
 
     @Override
-    public MainPresentable getCastedPresenter() {
-        return (MainPresentable) getPresenter();
+    public IMainPresenter createPresenter() {
+        return new MainPresenter_New(this);
     }
+
+//    @Override
+//    public IMainPresenter getCastedPresenter() {
+//        return (IMainPresenter) getPresenter();
+//    }
 
     @Override
     public void addItem(RecDTO recDTO) {
