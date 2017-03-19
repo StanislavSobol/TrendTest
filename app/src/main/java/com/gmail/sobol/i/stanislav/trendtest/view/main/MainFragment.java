@@ -41,7 +41,7 @@ public class MainFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        recyclerView.setAdapter(new MainActivityListAdapter(null));
+        recyclerView.setAdapter(new MainActivityListAdapter((MainActivity) getActivity()));
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         // load buffered incoming records

@@ -9,11 +9,11 @@ import com.gmail.sobol.i.stanislav.trendtest.presenter.main.IMainPresenter;
 import com.gmail.sobol.i.stanislav.trendtest.presenter.main.MainPresenter;
 import com.gmail.sobol.i.stanislav.trendtest.view.BaseActivity;
 
-public class MainActivityMainView extends BaseActivity<IMainPresenter> implements IMainView {
+public class MainActivity extends BaseActivity<IMainPresenter> implements IMainView {
 
     private MainFragment mainFragment;
 
-    public MainActivityMainView() {
+    public MainActivity() {
         Log.d("SSS", "MainActivity create");
     }
 
