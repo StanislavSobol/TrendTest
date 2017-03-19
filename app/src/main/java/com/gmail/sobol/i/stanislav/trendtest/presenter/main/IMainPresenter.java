@@ -1,5 +1,6 @@
 package com.gmail.sobol.i.stanislav.trendtest.presenter.main;
 
+import com.gmail.sobol.i.stanislav.trendtest.dto.RequestDTO;
 import com.gmail.sobol.i.stanislav.trendtest.presenter.IBasePresenter;
 
 /**
@@ -7,7 +8,7 @@ import com.gmail.sobol.i.stanislav.trendtest.presenter.IBasePresenter;
  */
 public interface IMainPresenter extends IBasePresenter {
 
-    void loadData(boolean fromCache);
+    void loadData(boolean fromCache, RequestDTO requestDTO);
 
     void clearCache();
 }

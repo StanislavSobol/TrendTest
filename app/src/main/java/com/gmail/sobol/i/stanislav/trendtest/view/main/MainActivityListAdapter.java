@@ -53,7 +53,6 @@ class MainActivityListAdapter extends RecyclerView.Adapter<MainActivityListAdapt
     }
 
     static class Holder extends RecyclerView.ViewHolder {
-
         @Bind(R.id.main_item_name_text_view)
         TextView nameTextView;
 

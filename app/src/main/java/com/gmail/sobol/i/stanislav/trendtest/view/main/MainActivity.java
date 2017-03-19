@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity<IMainPresenter> implements IMainV
         if (isRealStart()) {
             getPresenter().clearCache();
         }
-        getPresenter().loadData(!isRealStart());
+        getPresenter().loadData(!isRealStart(), mainFragment.getRequestDTO());
     }
 
     @Override
@@ -53,5 +53,9 @@ public class MainActivity extends BaseActivity<IMainPresenter> implements IMainV
     @Override
     public void clearItems() {
         // getRecyclerViewAdapter().clearItems();
+    }
+
+    public void loadData() {
+        getPresenter().loadData(false, mainFragment.getRequestDTO());
     }
 }

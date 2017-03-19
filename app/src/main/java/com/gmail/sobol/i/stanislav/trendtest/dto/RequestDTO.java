@@ -14,5 +14,5 @@ import lombok.Setter;
 public class RequestDTO {
     int offset;
     int from;
-    int to;
+    int to = Integer.MAX_VALUE;
 }

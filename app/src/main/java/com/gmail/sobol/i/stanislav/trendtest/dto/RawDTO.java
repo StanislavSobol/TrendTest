@@ -31,8 +31,22 @@ public class RawDTO {
 
             recDTO.setId((int) (double) itemMap.get("id"));
             recDTO.setName((String) itemMap.get("name"));
-            recDTO.setAddress((String) itemMap.get("address"));
             recDTO.setImageUrl((String) itemMap.get("image"));
+
+            final List<MinPriceDTO> minPriceDTOs = new ArrayList<>();
+
+            final List<Object> minPricesObjs = (List<Object>) itemMap.get("min_prices");
+//            for (final Object minPricesObj : minPricesObjs) {
+//
+//                final List<Object> lo = (List<Object>) minPricesObj;
+//
+//                Log.d("SSS", "minPricesObj = " + minPricesObj );
+//            }
+
+
+            recDTO.setMinPriceDTOs(minPriceDTOs);
+
+            recDTO.setAddress((String) itemMap.get("address")); // odd
 
             result.add(recDTO);
         }

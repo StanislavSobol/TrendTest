@@ -48,23 +48,19 @@ public class MainPresenter extends BasePresenter implements IMainPresenter, Seri
     }
 
     @Override
-    public void loadData(boolean fromCache) {
+    public void loadData(boolean fromCache, RequestDTO requestDTO) {
         getCastedView().clearItems();
 
         if (fromCache) {
             for (final RecDTO item : items) {
-                Log.d("SSS", "presenter from cache recDTO = " + item + " from " + items.size());
-                //         Log.d("SSS", "loadData fromCache Thread = " + Thread.currentThread().getName());
                 getCastedView().addItem(item);
             }
             return;
         }
 
-        final RequestDTO requestDTO = new RequestDTO();
-
-        requestDTO.setOffset(items.size() + 10);
-        requestDTO.setFrom(0);
-        requestDTO.setTo(10000);
+        if (requestDTO == null) {
+            requestDTO = new RequestDTO();
+        }
 
         mainSubscription = dataProvider.loadData(requestDTO)
                 .onBackpressureBuffer()
@@ -100,7 +96,6 @@ public class MainPresenter extends BasePresenter implements IMainPresenter, Seri
 
                     @Override
                     public void onNext(RecDTO recDTO) {
-//                        Log.d("SSS", "presenter recDTO = " + recDTO);
                         items.add(recDTO);
                         getCastedView().addItem(recDTO);
                     }
