@@ -41,7 +41,7 @@ public class MainFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        recyclerView.setAdapter(new MainActivityListAdapter(this));
+//        recyclerView.setAdapter(new MainActivityListAdapter(this));
 
         return view;
     }
@@ -51,6 +51,6 @@ public class MainFragment extends Fragment {
     }
 
     public void addItem(RecDTO recDTO) {
-        getAdapter().addItem(recDTO);
+        //  getAdapter().addItem(recDTO);
     }
 }

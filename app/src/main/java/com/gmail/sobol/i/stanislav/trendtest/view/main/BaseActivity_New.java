@@ -3,7 +3,6 @@ package com.gmail.sobol.i.stanislav.trendtest.view.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.gmail.sobol.i.stanislav.trendtest.view.BaseView;
 
@@ -25,33 +24,32 @@ public abstract class BaseActivity_New<T extends IBasePresenter> extends AppComp
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        onCommonStart();
 
-        //  boolean realStart = false;
+        realStart = savedInstanceState == null || presenter == null;
 
-        if (savedInstanceState == null) {
+        if (realStart) {
             presenter = createPresenter();
         } else {
             presenter = (IBasePresenter) savedInstanceState.getSerializable(PRESENTER_KEY);
+            if (presenter != null) {
+                presenter.setView(this);
+            }
+        }
+
+        if (presenter == null) {
+            throw new RuntimeException("The presenter is null");
         }
 
         if (!(presenter instanceof Serializable)) {
             throw new RuntimeException("The presenter doesn't implement Serializable interface");
         }
-
-        realStart = savedInstanceState == null;
-
-//        if (realStart) {
-//            onRealStart();
-//        } else {
-//            onUnrealStart();
-//        }
     }
 
     @Override
     protected void onDestroy() {
         if (presenter != null) {
             presenter.release();
+            presenter = null;
         }
         super.onDestroy();
     }
@@ -75,33 +73,12 @@ public abstract class BaseActivity_New<T extends IBasePresenter> extends AppComp
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (isChangingConfigurations()) {
-            outState.putSerializable(PRESENTER_KEY, (Serializable) presenter);
-        } else {
-            presenter = null;
-        }
-        Log.d("SSS", "onSaveInstanceState = " + isChangingConfigurations());
+        outState.putSerializable(PRESENTER_KEY, (Serializable) presenter);
     }
 
     public T getPresenter() {
         return (T) presenter;
     }
-
-//    /**
-//     * Used in common start. In every onCreate event
-//     */
-//    protected abstract void onCommonStart();
-//
-//    /**
-//     * Used only if presenter was created in the same onCreate method (e.g. there was no changing configuration)
-//     */
-//    protected abstract void onRealStart();
-//
-//    /**
-//     * Used only if presenter was NOT created in the same onCreate method (e.g. there was changing configuration)
-//     */
-//    protected abstract void onUnrealStart();
-
 
     /**
      * Compell the succeded activity to provide the proper presenter

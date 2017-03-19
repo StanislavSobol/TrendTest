@@ -47,13 +47,16 @@ public class MainPresenter_New extends BasePresenter_New implements IMainPresent
 
     @Override
     public void loadData(boolean fromCache) {
+        getCastedView().clearItems();
+
         if (fromCache) {
             for (final RecDTO item : items) {
+//                Log.d("SSS", "presenter from cache recDTO = " + item + " from " + items.size());
+                //         Log.d("SSS", "loadData fromCache Thread = " + Thread.currentThread().getName());
                 getCastedView().addItem(item);
             }
             return;
         }
-
 
         final RequestDTO requestDTO = new RequestDTO();
 
@@ -79,6 +82,7 @@ public class MainPresenter_New extends BasePresenter_New implements IMainPresent
                         });
                     }
                 })
+                //       .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<RecDTO>() {
                     @Override
@@ -94,6 +98,7 @@ public class MainPresenter_New extends BasePresenter_New implements IMainPresent
 
                     @Override
                     public void onNext(RecDTO recDTO) {
+//                        Log.d("SSS", "presenter recDTO = " + recDTO);
                         items.add(recDTO);
                         getCastedView().addItem(recDTO);
                     }

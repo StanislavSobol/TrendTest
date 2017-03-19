@@ -9,4 +9,6 @@ import com.gmail.sobol.i.stanislav.trendtest.view.BaseView;
 public interface MainView extends BaseView {
 
     void addItem(RecDTO recDTO);
+
+    void clearItems();
 }

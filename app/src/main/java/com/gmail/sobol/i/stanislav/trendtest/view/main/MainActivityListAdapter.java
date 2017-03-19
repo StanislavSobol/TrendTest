@@ -23,44 +23,53 @@ class MainActivityListAdapter extends RecyclerView.Adapter<MainActivityListAdapt
 
     private List<RecDTO> items = new ArrayList<>();
 
-    public MainActivityListAdapter(MainFragment mainFragment) {
-        Log.d("SSS", "MainActivityListAdapter");
+    MainActivityListAdapter(MainActivity activity) {
+        Log.d("SSS", "MainActivityListAdapter " + this);
+//        Log.d("SSS", "MainActivityListAdapter sizeoff = " + items.size());
+//        items.clear();
     }
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //Log.d("SSS", "onCreateViewHolder = ");
+//        Log.d("SSS", "onCreateViewHolder = ");
         return new Holder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.main_item, parent, false));
     }
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
+//        Log.d("SSS", "bind pos = " + position);
         holder.setItem(items.get(position));
-        //   Log.d("SSS", "bind pos = " + position);
     }
 
     @Override
     public int getItemCount() {
+        Log.d("SSS", "getItemCount= " + items.size());
         return items.size();
     }
 
     void addItem(RecDTO recDTO) {
         items.add(recDTO);
         notifyItemInserted(items.size()-1);
+        Log.d("SSS", "addItem sizeo = " + items.size());
+        //notifyDataSetChanged();
     }
 
-    class Holder extends RecyclerView.ViewHolder {
+    void clearItems() {
+        items.clear();
+    }
+
+    static class Holder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.main_item_name_text_view)
         TextView nameTextView;
 
-        public Holder(View itemView) {
+        Holder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void setItem(RecDTO recDTO) {
+        void setItem(RecDTO recDTO) {
             nameTextView.setText(recDTO.getName());
         }
     }

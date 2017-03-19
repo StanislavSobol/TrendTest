@@ -1,11 +1,11 @@
 package com.gmail.sobol.i.stanislav.trendtest.view.main;
 
-import com.gmail.sobol.i.stanislav.trendtest.view.BaseActivity;
 import com.gmail.sobol.i.stanislav.trendtest.view.BaseView;
 
 import java.io.Serializable;
 
 import lombok.Getter;
+import lombok.Setter;
 import rx.Subscription;
 
 /**
@@ -13,6 +13,7 @@ import rx.Subscription;
  */
 
 public abstract class BasePresenter_New implements IBasePresenter, Serializable {
+    @Setter
     @Getter
     private BaseView view;
     @Getter
@@ -27,23 +28,31 @@ public abstract class BasePresenter_New implements IBasePresenter, Serializable 
 
     protected abstract void dagger2Inject();
 
+    @Override
     public void release() {
         if (mainSubscription != null) {
             mainSubscription.unsubscribe();
         }
     }
 
-    public void setView(BaseActivity baseActivity) {
-        view = (BaseView) baseActivity;
-    }
+//    @Override
+//    public void setView(BaseActivity baseActivity) {
+//        view = (BaseView) baseActivity;
+//    }
 
     abstract protected BaseView getCastedView();
 
+    @Override
     public void onResume() {
         viewVisible = true;
     }
 
+    @Override
     public void onPause() {
         viewVisible = false;
     }
+//
+//    public void setView(BaseView view) {
+//
+//    }
 }
