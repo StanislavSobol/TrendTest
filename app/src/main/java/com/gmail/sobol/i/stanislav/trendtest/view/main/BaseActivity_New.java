@@ -25,7 +25,7 @@ public abstract class BaseActivity_New<T extends IBasePresenter> extends AppComp
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        realStart = savedInstanceState == null || presenter == null;
+        realStart = savedInstanceState == null;
 
         if (realStart) {
             presenter = createPresenter();

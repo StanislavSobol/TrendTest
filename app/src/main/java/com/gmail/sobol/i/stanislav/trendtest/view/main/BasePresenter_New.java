@@ -35,11 +35,6 @@ public abstract class BasePresenter_New implements IBasePresenter, Serializable 
         }
     }
 
-//    @Override
-//    public void setView(BaseActivity baseActivity) {
-//        view = (BaseView) baseActivity;
-//    }
-
     abstract protected BaseView getCastedView();
 
     @Override
@@ -51,8 +46,4 @@ public abstract class BasePresenter_New implements IBasePresenter, Serializable 
     public void onPause() {
         viewVisible = false;
     }
-//
-//    public void setView(BaseView view) {
-//
-//    }
 }

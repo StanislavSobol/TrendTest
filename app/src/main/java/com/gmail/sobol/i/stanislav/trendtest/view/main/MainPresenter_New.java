@@ -51,7 +51,7 @@ public class MainPresenter_New extends BasePresenter_New implements IMainPresent
 
         if (fromCache) {
             for (final RecDTO item : items) {
-//                Log.d("SSS", "presenter from cache recDTO = " + item + " from " + items.size());
+                Log.d("SSS", "presenter from cache recDTO = " + item + " from " + items.size());
                 //         Log.d("SSS", "loadData fromCache Thread = " + Thread.currentThread().getName());
                 getCastedView().addItem(item);
             }

@@ -7,8 +7,6 @@ import com.gmail.sobol.i.stanislav.trendtest.view.BaseView;
  */
 public interface IBasePresenter {
 
-//    BaseActivity baseActivity
-
     void release();
 
     void onPause();

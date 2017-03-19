@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import com.gmail.sobol.i.stanislav.trendtest.R;
 import com.gmail.sobol.i.stanislav.trendtest.dto.RecDTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -40,17 +43,33 @@ public class MainFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        recyclerView.setAdapter(new MainActivityListAdapter(null));
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-//        recyclerView.setAdapter(new MainActivityListAdapter(this));
+
+        // load buffered incoming records
+        if (getRecyclerViewAdapter() != null) {
+            for (final RecDTO item : bufferRecDTO) {
+                getRecyclerViewAdapter().addItem(item);
+            }
+            bufferRecDTO.clear();
+        }
 
         return view;
     }
 
-    private MainActivityListAdapter getAdapter() {
-        return (MainActivityListAdapter) recyclerView.getAdapter();
+    private MainActivityListAdapter getRecyclerViewAdapter() {
+        return recyclerView == null ? null : (MainActivityListAdapter) recyclerView.getAdapter();
     }
 
+    final private List<RecDTO> bufferRecDTO = new ArrayList<>();
+
+    // In case if the recycler view doesn't exist yet must buffer the incoming records
     public void addItem(RecDTO recDTO) {
-        //  getAdapter().addItem(recDTO);
+        final MainActivityListAdapter adapter = getRecyclerViewAdapter();
+        if (adapter == null) {
+            bufferRecDTO.add(recDTO);
+        } else {
+            adapter.addItem(recDTO);
+        }
     }
 }
