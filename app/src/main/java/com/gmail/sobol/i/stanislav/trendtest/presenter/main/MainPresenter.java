@@ -1,25 +1,41 @@
 package com.gmail.sobol.i.stanislav.trendtest.presenter.main;
 
+import android.util.Log;
+
 import com.gmail.sobol.i.stanislav.trendtest.MApplication;
 import com.gmail.sobol.i.stanislav.trendtest.data.DataProviderPresentable;
+import com.gmail.sobol.i.stanislav.trendtest.dto.RawDTO;
 import com.gmail.sobol.i.stanislav.trendtest.dto.RecDTO;
+import com.gmail.sobol.i.stanislav.trendtest.dto.RequestDTO;
 import com.gmail.sobol.i.stanislav.trendtest.presenter.BasePresenter;
-import com.gmail.sobol.i.stanislav.trendtest.view.main.MainView;
+import com.gmail.sobol.i.stanislav.trendtest.view.IBaseView;
+import com.gmail.sobol.i.stanislav.trendtest.view.main.IMainView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+
 /**
- * Created by VZ on 17.03.2017.
+ * Created by VZ on 18.03.2017.
  */
-public class MainPresenter extends BasePresenter implements MainPresentable {
+public class MainPresenter extends BasePresenter implements IMainPresenter, Serializable {
 
     private List<RecDTO> items = new ArrayList<>();
 
     @Inject
     DataProviderPresentable dataProvider;
+
+    public MainPresenter(IBaseView view) {
+        super(view);
+    }
 
     @Override
     protected void dagger2Inject() {
@@ -27,59 +43,72 @@ public class MainPresenter extends BasePresenter implements MainPresentable {
     }
 
     @Override
-    protected MainView getCastedView() {
-        return (MainView) getView();
+    protected IMainView getCastedView() {
+        return (IMainView) getView();
     }
 
     @Override
-    public void loadData() {
+    public void loadData(boolean fromCache) {
+        getCastedView().clearItems();
 
-//        final RequestDTO requestDTO = new RequestDTO();
-//
-//        requestDTO.setOffset(0);
-//        requestDTO.setFrom(0);
-//        requestDTO.setTo(10000);
-//
-//        mainSubscription = dataProvider.loadData(requestDTO)
-//                .onBackpressureBuffer()
-//                .subscribeOn(Schedulers.computation())
-//                .flatMap(new Func1<RawDTO, Observable<RecDTO>>() {
-//                    @Override
-//                    public Observable<RecDTO> call(final RawDTO rawDTO) {
-//                        return Observable.create(new Observable.OnSubscribe<RecDTO>() {
-//                            @Override
-//                            public void call(Subscriber<? super RecDTO> subscriber) {
-//                                final List<RecDTO> items = rawDTO.getRecDTOs(rawDTO);
-//                                for (final RecDTO item : items) {
-//                                    subscriber.onNext(item);
-//                                }
-//                                subscriber.onCompleted();
-//                            }
-//                        });
-//                    }
-//                })
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Subscriber<RecDTO>() {
-//                    @Override
-//                    public void onCompleted() {
-//                        mainSubscription.unsubscribe();
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        mainSubscription.unsubscribe();
-//                        Log.d("SSS", "e = " + e);
-//                    }
-//
-//                    @Override
-//                    public void onNext(RecDTO recDTO) {
-//                        getCastedView().addItem(recDTO);
-//                    }
-//                });
+        if (fromCache) {
+            for (final RecDTO item : items) {
+                Log.d("SSS", "presenter from cache recDTO = " + item + " from " + items.size());
+                //         Log.d("SSS", "loadData fromCache Thread = " + Thread.currentThread().getName());
+                getCastedView().addItem(item);
+            }
+            return;
+        }
+
+        final RequestDTO requestDTO = new RequestDTO();
+
+        requestDTO.setOffset(items.size() + 10);
+        requestDTO.setFrom(0);
+        requestDTO.setTo(10000);
+
+        mainSubscription = dataProvider.loadData(requestDTO)
+                .onBackpressureBuffer()
+                .subscribeOn(Schedulers.computation())
+                .flatMap(new Func1<RawDTO, Observable<RecDTO>>() {
+                    @Override
+                    public Observable<RecDTO> call(final RawDTO rawDTO) {
+                        return Observable.create(new Observable.OnSubscribe<RecDTO>() {
+                            @Override
+                            public void call(Subscriber<? super RecDTO> subscriber) {
+                                final List<RecDTO> items = rawDTO.getRecDTOs(rawDTO);
+                                for (final RecDTO item : items) {
+                                    subscriber.onNext(item);
+                                }
+                                subscriber.onCompleted();
+                            }
+                        });
+                    }
+                })
+                //       .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<RecDTO>() {
+                    @Override
+                    public void onCompleted() {
+                        mainSubscription.unsubscribe();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mainSubscription.unsubscribe();
+                        Log.d("SSS", "e = " + e);
+                    }
+
+                    @Override
+                    public void onNext(RecDTO recDTO) {
+//                        Log.d("SSS", "presenter recDTO = " + recDTO);
+                        items.add(recDTO);
+                        getCastedView().addItem(recDTO);
+                    }
+                });
     }
 
     @Override
-    public void reset() {
-
+    public void clearCache() {
+        items.clear();
     }
 }

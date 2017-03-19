@@ -1,4 +1,6 @@
-package com.gmail.sobol.i.stanislav.trendtest.view.main;
+package com.gmail.sobol.i.stanislav.trendtest.presenter.main;
+
+import com.gmail.sobol.i.stanislav.trendtest.presenter.IBasePresenter;
 
 /**
  * Created by VZ on 18.03.2017.

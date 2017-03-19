@@ -5,12 +5,15 @@ import android.util.Log;
 
 import com.gmail.sobol.i.stanislav.trendtest.R;
 import com.gmail.sobol.i.stanislav.trendtest.dto.RecDTO;
+import com.gmail.sobol.i.stanislav.trendtest.presenter.main.IMainPresenter;
+import com.gmail.sobol.i.stanislav.trendtest.presenter.main.MainPresenter;
+import com.gmail.sobol.i.stanislav.trendtest.view.BaseActivity;
 
-public class MainActivity extends BaseActivity_New<IMainPresenter> implements MainView {
+public class MainActivityMainView extends BaseActivity<IMainPresenter> implements IMainView {
 
     private MainFragment mainFragment;
 
-    public MainActivity() {
+    public MainActivityMainView() {
         Log.d("SSS", "MainActivity create");
     }
 
@@ -39,7 +42,7 @@ public class MainActivity extends BaseActivity_New<IMainPresenter> implements Ma
 
     @Override
     public IMainPresenter createPresenter() {
-        return new MainPresenter_New(this);
+        return new MainPresenter(this);
     }
 
     @Override

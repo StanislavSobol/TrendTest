@@ -23,7 +23,7 @@ class MainActivityListAdapter extends RecyclerView.Adapter<MainActivityListAdapt
 
     private List<RecDTO> items = new ArrayList<>();
 
-    MainActivityListAdapter(MainActivity activity) {
+    MainActivityListAdapter(MainActivityMainView activity) {
         Log.d("SSS", "MainActivityListAdapter " + this);
 //        Log.d("SSS", "MainActivityListAdapter sizeoff = " + items.size());
 //        items.clear();
