@@ -64,7 +64,7 @@ public class MainFragment extends Fragment {
 
         initFromSpinner();
 
-        recyclerView.setAdapter(new MainActivityListAdapter(getCastedActivity()));
+        recyclerView.setAdapter(new MainActivityListAdapter(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         // load buffered incoming records
@@ -168,5 +168,9 @@ public class MainFragment extends Fragment {
 
     public void clearItems() {
         getRecyclerViewAdapter().clearItems();
+    }
+
+    public void addLoadButton() {
+        getRecyclerViewAdapter().addLoadButton();
     }
 }

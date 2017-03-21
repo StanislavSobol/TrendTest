@@ -58,11 +58,16 @@ public class MainActivity extends BaseActivity<IMainPresenter> implements IMainV
     @Override
     public void completeLoading() {
         mainFragment.hideFullProgressBar();
+        mainFragment.addLoadButton();
     }
 
     public void loadData() {
         mainFragment.showFullProgressBar();
         mainFragment.clearItems();
+        getPresenter().loadData(false, mainFragment.getRequestDTO());
+    }
+
+    public void loadMoreData() {
         getPresenter().loadData(false, mainFragment.getRequestDTO());
     }
 }

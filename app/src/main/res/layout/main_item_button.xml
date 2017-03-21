@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:id="@+id/main_item_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/main_item_load_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorButtonGrey"
+        android:text="@string/load_10" />
+</FrameLayout>

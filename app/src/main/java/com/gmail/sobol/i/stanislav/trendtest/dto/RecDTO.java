@@ -1,5 +1,7 @@
 package com.gmail.sobol.i.stanislav.trendtest.dto;
 
+import com.gmail.sobol.i.stanislav.trendtest.view.main.MainActivityListAdapterItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class RecDTO {
+public class RecDTO implements MainActivityListAdapterItem {
     private int id;
 
     private String name = "";
