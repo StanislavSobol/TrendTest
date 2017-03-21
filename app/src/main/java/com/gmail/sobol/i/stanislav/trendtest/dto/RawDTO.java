@@ -32,21 +32,33 @@ public class RawDTO {
             recDTO.setId((int) (double) itemMap.get("id"));
             recDTO.setName((String) itemMap.get("name"));
             recDTO.setImageUrl((String) itemMap.get("image"));
+            recDTO.setDeadline((String) itemMap.get("deadline"));
 
             final List<MinPriceDTO> minPriceDTOs = new ArrayList<>();
-
-            final List<Object> minPricesObjs = (List<Object>) itemMap.get("min_prices");
-//            for (final Object minPricesObj : minPricesObjs) {
-//
-//                final List<Object> lo = (List<Object>) minPricesObj;
-//
-//                Log.d("SSS", "minPricesObj = " + minPricesObj );
-//            }
-
-
+            final List<Map<String, Object>> minPricesMap = (List<Map<String, Object>>) itemMap.get("min_prices");
+            for (final Map<String, Object> minPricesPair : minPricesMap) {
+                final MinPriceDTO minPriceDTO = new MinPriceDTO();
+                minPriceDTO.setName((String) minPricesPair.get("rooms"));
+                minPriceDTO.setPrice((double) minPricesPair.get("price"));
+                minPriceDTOs.add(minPriceDTO);
+            }
             recDTO.setMinPriceDTOs(minPriceDTOs);
 
-            recDTO.setAddress((String) itemMap.get("address")); // odd
+            recDTO.setAddress((String) itemMap.get("address"));
+
+            final Map<String, Object> builderMap = (Map<String, Object>) itemMap.get("builder");
+            recDTO.setBuilder((String) builderMap.get("name"));
+
+            final List<SubwayDTO> subwayDTOs = new ArrayList<>();
+            final List<Map<String, Object>> subwaysMap = (List<Map<String, Object>>) itemMap.get("subways");
+            for (final Map<String, Object> subwayPair : subwaysMap) {
+                final SubwayDTO subwayDTO = new SubwayDTO();
+                subwayDTO.setName((String) subwayPair.get("name"));
+                subwayDTO.setDistTiming((double) subwayPair.get("distance_timing"));
+                subwayDTO.setDistType((String) subwayPair.get("distance_type"));
+                subwayDTOs.add(subwayDTO);
+            }
+            recDTO.setSubwayDTOs(subwayDTOs);
 
             result.add(recDTO);
         }

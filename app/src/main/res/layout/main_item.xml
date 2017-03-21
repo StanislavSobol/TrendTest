@@ -1,28 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
-    android:orientation="vertical"
-    android:paddingBottom="7px"
-    android:paddingLeft="20px"
-    android:paddingRight="18px"
-    android:paddingTop="11px">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/main_item_name_text_view"
-        style="@style/FontRegular"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ЖК Приневский"
-        android:textSize="18sp" />
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:paddingBottom="7sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="11dp">
 
-    <TextView
-        android:id="@+id/main_item_deadline_text_view"
-        style="@style/FontBold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Срок сдачи: "
-        android:textSize="12sp" />
+        <TextView
+            android:id="@+id/main_item_name_text_view"
+            style="@style/FontRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="ЖК Приневский"
+            android:textSize="18sp" />
 
+        <TextView
+            android:id="@+id/main_item_deadline_text_view"
+            style="@style/FontBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLines="1"
+            android:text="Срок сдачи: "
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/main_item_image_view"
+                android:layout_width="128dp"
+                android:layout_height="105dp" />
+
+            <LinearLayout
+                android:id="@+id/main_item_min_prices_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/FontRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:maxLines="1"
+                android:text="Приморский"
+                android:textSize="12sp" />
+
+            <TextView
+                style="@style/FontBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical|end"
+                android:maxLines="1"
+                android:text="Росстстрой инвест"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/main_item_subways_layout"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@null" />
 </LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="140dp"
+    android:layout_height="30dp">
+
+    <TextView
+        android:id="@+id/room_subitem_room_text_view"
+        style="@style/FontRegular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical|start"
+        android:maxLines="1"
+        android:text="C "
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/price_subitem_room_text_view"
+        style="@style/FontBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/room_subitem_room_text_view"
+        android:layout_alignBottom="@+id/room_subitem_room_text_view"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center_vertical|end"
+        android:maxLines="1"
+        android:text="от 100500"
+        android:textSize="12sp" />
+</RelativeLayout>

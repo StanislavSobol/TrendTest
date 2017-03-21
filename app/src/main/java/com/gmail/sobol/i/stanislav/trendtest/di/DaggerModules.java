@@ -22,16 +22,15 @@ public class DaggerModules {
     @Singleton
     @QRetrofit
     Retrofit providesRetrofit() {
-        final Retrofit retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl("http://api.trend-dev.ru")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-        return retrofit;
     }
 
     @Provides
-    TrendApi provideDeviceService(@QRetrofit Retrofit retrofit) {
+    TrendApi provideTrendApi(@QRetrofit Retrofit retrofit) {
         return retrofit.create(TrendApi.class);
     }
 
