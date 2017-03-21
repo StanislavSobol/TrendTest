@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.gmail.sobol.i.stanislav.trendtest.R;
@@ -43,6 +43,9 @@ public class MainFragment extends Fragment {
     @Bind(R.id.main_recycler_view)
     RecyclerView recyclerView;
 
+    @Bind(R.id.full_progress_bar)
+    ProgressBar fullProgressBar;
+
     @Getter
     final private RequestDTO requestDTO = new RequestDTO();
 
@@ -72,6 +75,7 @@ public class MainFragment extends Fragment {
             bufferRecDTO.clear();
         }
 
+        showFullProgressBar();
         return view;
     }
 
@@ -96,7 +100,6 @@ public class MainFragment extends Fragment {
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("SSS", "onItemSelected i = " + i + " l = " + l);
                 initToSpinner(strings.get(i));
 
                 requestDTO.setFrom(Integer.valueOf(strings.get(i)));
@@ -105,7 +108,6 @@ public class MainFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Log.d("SSS", "onNothingSelected");
             }
         });
     }
@@ -130,6 +132,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 requestDTO.setTo(Integer.valueOf(strings.get(i)));
+                getCastedActivity().loadData();
             }
 
             @Override
@@ -151,5 +154,19 @@ public class MainFragment extends Fragment {
         } else {
             adapter.addItem(recDTO);
         }
+    }
+
+    void showFullProgressBar() {
+        fullProgressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    void hideFullProgressBar() {
+        fullProgressBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    public void clearItems() {
+        getRecyclerViewAdapter().clearItems();
     }
 }

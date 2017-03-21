@@ -85,6 +85,7 @@ public class MainPresenter extends BasePresenter implements IMainPresenter, Seri
                 .subscribe(new Subscriber<RecDTO>() {
                     @Override
                     public void onCompleted() {
+                        getCastedView().completeLoading();
                         mainSubscription.unsubscribe();
                     }
 

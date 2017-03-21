@@ -11,4 +11,6 @@ public interface IMainView extends IBaseView {
     void addItem(RecDTO recDTO);
 
     void clearItems();
+
+    void completeLoading();
 }

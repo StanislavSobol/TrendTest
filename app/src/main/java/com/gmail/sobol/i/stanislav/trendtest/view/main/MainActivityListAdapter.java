@@ -54,6 +54,7 @@ class MainActivityListAdapter extends RecyclerView.Adapter<MainActivityListAdapt
 
     void clearItems() {
         items.clear();
+        notifyDataSetChanged();
     }
 
     class Holder extends RecyclerView.ViewHolder {

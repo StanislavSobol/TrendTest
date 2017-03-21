@@ -52,10 +52,17 @@ public class MainActivity extends BaseActivity<IMainPresenter> implements IMainV
 
     @Override
     public void clearItems() {
-        // getRecyclerViewAdapter().clearItems();
+        //getRecyclerViewAdapter().clearItems();
+    }
+
+    @Override
+    public void completeLoading() {
+        mainFragment.hideFullProgressBar();
     }
 
     public void loadData() {
+        mainFragment.showFullProgressBar();
+        mainFragment.clearItems();
         getPresenter().loadData(false, mainFragment.getRequestDTO());
     }
 }
