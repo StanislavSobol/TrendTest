@@ -1,6 +1,7 @@
 package com.gmail.sobol.i.stanislav.trendtest.view.main;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.gmail.sobol.i.stanislav.trendtest.R;
@@ -33,7 +34,14 @@ public class MainActivity extends BaseActivity<IMainPresenter> implements IMainV
                 )
                 .commit();
 
-        //getRecyclerViewAdapter().clearItems();
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+
+        setTitle("");
+
         if (isRealStart()) {
             getPresenter().clearCache();
         }

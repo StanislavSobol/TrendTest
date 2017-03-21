@@ -127,6 +127,8 @@ class MainActivityListAdapter extends RecyclerView.Adapter<MainActivityListAdapt
                 setRegularItem((RecDTO) itemView);
             } else if (itemView instanceof LoadButton) {
                 setButtonItem();
+            } else {
+                throw new IllegalArgumentException("MainActivityListAdapterItem itemView has unknown implementation");
             }
         }
 
