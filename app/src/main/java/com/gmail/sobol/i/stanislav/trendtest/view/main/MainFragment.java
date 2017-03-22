@@ -4,6 +4,7 @@ package com.gmail.sobol.i.stanislav.trendtest.view.main;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,15 +37,14 @@ public class MainFragment extends Fragment {
 
     @Bind(R.id.main_from_spinner)
     Spinner fromSpinner;
-
     @Bind(R.id.main_to_spinner)
     Spinner toSpinner;
-
     @Bind(R.id.main_recycler_view)
     RecyclerView recyclerView;
-
     @Bind(R.id.full_progress_bar)
     ProgressBar fullProgressBar;
+    @Bind(R.id.main_swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Getter
     final private RequestDTO requestDTO = new RequestDTO();
@@ -75,7 +75,14 @@ public class MainFragment extends Fragment {
             bufferRecDTO.clear();
         }
 
-        showFullProgressBar();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getCastedActivity().loadData(false);
+            }
+        });
+
+        startLoading();
         return view;
     }
 
@@ -103,7 +110,7 @@ public class MainFragment extends Fragment {
                 initToSpinner(strings.get(i));
 
                 requestDTO.setFrom(Integer.valueOf(strings.get(i)));
-                getCastedActivity().loadData();
+                getCastedActivity().loadData(true);
             }
 
             @Override
@@ -132,7 +139,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 requestDTO.setTo(Integer.valueOf(strings.get(i)));
-                getCastedActivity().loadData();
+                getCastedActivity().loadData(true);
             }
 
             @Override
@@ -156,21 +163,26 @@ public class MainFragment extends Fragment {
         }
     }
 
-    void showFullProgressBar() {
+    void startLoading() {
         fullProgressBar.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
     }
 
-    void hideFullProgressBar() {
+    void completeLoading() {
+        swipeRefreshLayout.setRefreshing(false);
         fullProgressBar.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
     }
 
     public void clearItems() {
-        getRecyclerViewAdapter().clearItems();
+        if (getRecyclerViewAdapter() != null) {
+            getRecyclerViewAdapter().clearItems();
+        }
     }
 
     public void addLoadButton() {
-        getRecyclerViewAdapter().addLoadButton();
+        if (getRecyclerViewAdapter() != null) {
+            getRecyclerViewAdapter().addLoadButton();
+        }
     }
 }
