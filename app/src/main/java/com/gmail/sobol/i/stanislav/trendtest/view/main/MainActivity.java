@@ -2,7 +2,6 @@ package com.gmail.sobol.i.stanislav.trendtest.view.main;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.gmail.sobol.i.stanislav.trendtest.R;
 import com.gmail.sobol.i.stanislav.trendtest.dto.RecDTO;
@@ -13,10 +12,6 @@ import com.gmail.sobol.i.stanislav.trendtest.view.BaseActivity;
 public class MainActivity extends BaseActivity<IMainPresenter> implements IMainView {
 
     private MainFragment mainFragment;
-
-    public MainActivity() {
-        Log.d("SSS", "MainActivity create");
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +54,6 @@ public class MainActivity extends BaseActivity<IMainPresenter> implements IMainV
     }
 
     @Override
-    public void clearItems() {
-        //getRecyclerViewAdapter().clearItems();
-    }
-
-    @Override
     public void completeLoading() {
         mainFragment.completeLoading();
         mainFragment.addLoadButton();
@@ -73,7 +63,7 @@ public class MainActivity extends BaseActivity<IMainPresenter> implements IMainV
         if (showProgressBar) {
             mainFragment.startLoading();
         }
-        mainFragment.clearItems();
+        mainFragment.clearData();
         getPresenter().loadData(false, mainFragment.getRequestDTO());
     }
 

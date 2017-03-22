@@ -49,8 +49,6 @@ public class MainPresenter extends BasePresenter implements IMainPresenter, Seri
 
     @Override
     public void loadData(boolean fromCache, RequestDTO requestDTO) {
-        getCastedView().clearItems();
-
         if (fromCache) {
             for (final RecDTO item : items) {
                 getCastedView().addItem(item);
@@ -80,7 +78,6 @@ public class MainPresenter extends BasePresenter implements IMainPresenter, Seri
                         });
                     }
                 })
-                //       .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<RecDTO>() {
                     @Override
@@ -92,7 +89,7 @@ public class MainPresenter extends BasePresenter implements IMainPresenter, Seri
                     @Override
                     public void onError(Throwable e) {
                         mainSubscription.unsubscribe();
-                        Log.d("SSS", "e = " + e);
+                        Log.d("Errors", "e = " + e);
                     }
 
                     @Override

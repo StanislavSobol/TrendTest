@@ -174,7 +174,8 @@ public class MainFragment extends Fragment {
         recyclerView.setVisibility(View.VISIBLE);
     }
 
-    public void clearItems() {
+    public void clearData() {
+        requestDTO.setOffset(0);
         if (getRecyclerViewAdapter() != null) {
             getRecyclerViewAdapter().clearItems();
         }
