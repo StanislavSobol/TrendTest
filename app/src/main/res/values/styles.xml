@@ -24,4 +24,9 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="FontSpinnerTitle" parent="FontBold">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_marginLeft">10sp</item>
+    </style>
+
 </resources>

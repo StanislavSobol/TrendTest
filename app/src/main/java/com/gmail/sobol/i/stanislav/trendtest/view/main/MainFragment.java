@@ -95,7 +95,7 @@ public class MainFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fromSpinner.setAdapter(adapter);
 
-        fromSpinner.setPrompt("Цена от");
+        fromSpinner.setPrompt(getString(R.string.price_from));
 
         fromSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -126,7 +126,7 @@ public class MainFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         toSpinner.setAdapter(adapter);
 
-        toSpinner.setPrompt("Цена до");
+        toSpinner.setPrompt(getString(R.string.price_to));
 
         toSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
